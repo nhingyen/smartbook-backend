@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 // --- IMPORT CÁC ROUTE ---
-// import bookRoutes from "./routes/bookRoutes.js";
+import bookRoutes from "./routes/api.js";
 
 // Cấu hình để dùng file .env
 dotenv.config();
@@ -22,7 +22,20 @@ mongoose
   .then(() => {
     // Dòng này sẽ thông báo cho bạn biết đã kết nối thành công
     console.log(">>> Đã kết nối thành công tới MongoDB");
+
+    app.listen(PORT, () => {
+      console.log(`>>>Server đang chạy tại http://localhost:${PORT}`);
+    });
   })
   .catch((err) => {
     console.error(">>> Lỗi kết nối MongoDB:", err.message);
   });
+
+// --- API ROUTES ---
+// Bảo server: "Tất cả request đến '/api/books' hãy đưa cho bookRoutes xử lý"
+app.use("/api", bookRoutes);
+
+// Route cơ bản để test
+app.get("/", (req, res) => {
+  res.send("Chào mừng đến với SmartBook Backend API!");
+});

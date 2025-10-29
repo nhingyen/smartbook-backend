@@ -3,6 +3,22 @@ import Author from "../models/author.js";
 // import Category from "../models/category.js";
 import Chapter from "../models/chapter.js";
 
+export const getAllBooks = async (req, res) => {
+  try {
+    const genre = req.query.genre;
+    let query = {};
+
+    if (genre) {
+      query.genres = genre;
+    }
+    // .populate('author') để lấy thông tin tác giả
+    const books = await Book.find(query).populate("author");
+    res.status(200).json(books);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 // API cho Home Screen
 export const getHomeData = async (req, res) => {
   try {
@@ -36,6 +52,20 @@ export const createBook = async (req, res) => {
     res.status(201).json(book);
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+};
+
+export const createManyBooks = async (req, res) => {
+  if (!Array.isArray(req.body) || req.body.length === 0) {
+    return res
+      .status(400)
+      .json({ error: "Request body phải là một mảng và không được rỗng" });
+  }
+  try {
+    const newBooks = await Book.insertMany(req.body);
+    res.status(201).json(newBooks);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
 };
 

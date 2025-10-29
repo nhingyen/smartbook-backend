@@ -9,17 +9,22 @@ import * as bookCtrl from "../controllers/bookController.js";
 import * as categoryCtrl from "../controllers/categoryController.js";
 import * as chapterCtrl from "../controllers/chapterController.js";
 
-// === API CHO SÁCH ===
+// === API CHO HOME ===
 router.get("/home", bookCtrl.getHomeData);
+
+// === API CHO SÁCH ===
+router.get("/books", bookCtrl.getAllBooks);
 router.get("/books/:id", bookCtrl.getBookDetails);
-// Khi nhận 'POST' đến URL '/api/books', gọi hàm 'createBook'
-router.post("/books", bookCtrl.createBook);
+// Khi nhận 'POST' đến URL '/api/book', gọi hàm 'createBook'
+router.post("/book/", bookCtrl.createBook);
+router.post("/books", bookCtrl.createManyBooks);
 
 // === API CHO TÁC GIẢ ===
 // GET /api/authors
 router.get("/authors", authorCtrl.getAllAuthors);
 // POST /api/authors
 router.post("/authors", authorCtrl.createManyAuthors);
+router.post("/author", authorCtrl.createAuthor);
 router.delete("/authors/:id", authorCtrl.deleteAuthor);
 
 // === API THỂ LOẠI (CATEGORY) ===
@@ -27,8 +32,9 @@ router.get("/categories", categoryCtrl.getAllCategories);
 router.post("/categories", categoryCtrl.createManyCategories);
 
 // === API CHƯƠNG (CHAPTER) ===
-router.post("/chapters", chapterCtrl.createChapter);
-router.get("/chapters/:id", chapterCtrl.getChaptersByBook);
+router.post("/chapter", chapterCtrl.createChapter);
+router.post("/chapters", chapterCtrl.createManyChapters);
+router.get("/chapters/:id", chapterCtrl.getChapterContent);
 
 // Phải export default
 export default router;

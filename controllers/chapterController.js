@@ -1,3 +1,7 @@
+import Author from "../models/author.js";
+// import Category from "../models/category.js";
+import Chapter from "../models/chapter.js";
+
 export const createChapter = async (req, res) => {
   try {
     const chapter = new Chapter(req.body);
@@ -13,7 +17,7 @@ export const createChapter = async (req, res) => {
   }
 };
 
-export const createManyAuthors = async (req, res) => {
+export const createManyChapters = async (req, res) => {
   // req.body bây giờ sẽ là một mảng [...]
   if (!Array.isArray(req.body) || req.body.length === 0) {
     return res
@@ -23,16 +27,16 @@ export const createManyAuthors = async (req, res) => {
 
   try {
     // Dùng Author.insertMany() để chèn toàn bộ mảng
-    const newAuthors = await Author.insertMany(req.body);
+    const newChapters = await Chapter.insertMany(req.body);
     // Trả về một mảng chứa các tác giả vừa được tạo
-    res.status(201).json(newAuthors);
+    res.status(201).json(newChapters);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
 
 // GET /api/chapters/:id (Lấy chi tiết nội dung chương)
-export const getChaptersByBook = async (req, res) => {
+export const getChapterContent = async (req, res) => {
   try {
     const chapter = await Chapter.findById(req.params.id);
     if (!chapter) {

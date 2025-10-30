@@ -7,7 +7,11 @@ const bookSchema = new Schema(
       type: String,
       required: true,
     },
-    author: { type: String, required: true },
+    author: {
+      type: Schema.Types.ObjectId, //1. Phải là ObjectId
+      ref: "Author", // 2. Phải có 'ref' để liên kết với Model 'Auth
+      required: true,
+    },
     imgUrl: { type: String, required: true },
     rating: { type: Number, default: 0 },
     ratingCount: { type: Number, default: 0 },

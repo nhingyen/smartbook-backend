@@ -23,8 +23,9 @@ mongoose
     // Dòng này sẽ thông báo cho bạn biết đã kết nối thành công
     console.log(">>> Đã kết nối thành công tới MongoDB");
 
-    app.listen(PORT, () => {
-      console.log(`>>>Server đang chạy tại http://localhost:${PORT}`);
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
+      console.log(`📡 Đang lắng nghe trên tất cả các IP (0.0.0.0)`); // Thêm dòng này để báo
     });
   })
   .catch((err) => {

@@ -18,6 +18,7 @@ router.get("/books/:id", bookCtrl.getBookDetails);
 // Khi nhận 'POST' đến URL '/api/book', gọi hàm 'createBook'
 router.post("/book/", bookCtrl.createBook);
 router.post("/books", bookCtrl.createManyBooks);
+router.delete("/books", bookCtrl.deleteAllBooks);
 
 // === API CHO TÁC GIẢ ===
 // GET /api/authors
@@ -35,6 +36,7 @@ router.post("/categories", categoryCtrl.createManyCategories);
 router.post("/chapter", chapterCtrl.createChapter);
 router.post("/chapters", chapterCtrl.createManyChapters);
 router.get("/chapters/:id", chapterCtrl.getChapterContent);
+router.delete("/chapters", chapterCtrl.deleteAllChapters);
 
 // Phải export default
 export default router;

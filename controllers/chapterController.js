@@ -48,3 +48,14 @@ export const getChapterContent = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const deleteAllChapters = async (req, res) => {
+  try {
+    const result = await Chapter.deleteMany({}); // {} nghĩa là "không có điều kiện", xóa tất cả
+    res
+      .status(200)
+      .json({ message: `Đã xóa thành công ${result.deletedCount} sách.` });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

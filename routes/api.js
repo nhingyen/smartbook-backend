@@ -23,6 +23,7 @@ router.delete("/books", bookCtrl.deleteAllBooks);
 // === API CHO TÁC GIẢ ===
 // GET /api/authors
 router.get("/authors", authorCtrl.getAllAuthors);
+router.get("/authors/:id", authorCtrl.getAuthorDetail);
 // POST /api/authors
 router.post("/authors", authorCtrl.createManyAuthors);
 router.post("/author", authorCtrl.createAuthor);

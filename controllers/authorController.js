@@ -41,6 +41,20 @@ export const getAllAuthors = async (req, res) => {
   }
 };
 
+// GET /api/authors/:id (Lấy chi tiết tac gia)
+export const getAuthorDetail = async (req, res) => {
+  try {
+    const author = await Author.findById(req.params.id);
+    if (!author) {
+      return res.status(404).json({ error: "Author not found" });
+    }
+
+    res.status(200).json(author);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export const deleteAuthor = async (req, res) => {
   try {
     const authorId = req.params.id;

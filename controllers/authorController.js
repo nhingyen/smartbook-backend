@@ -1,5 +1,5 @@
 import Author from "../models/author.js";
-
+import Book from "../models/book.js";
 // Tạo tác giả mới
 export const createAuthor = async (req, res) => {
   try {
@@ -44,12 +44,20 @@ export const getAllAuthors = async (req, res) => {
 // GET /api/authors/:id (Lấy chi tiết tac gia)
 export const getAuthorDetail = async (req, res) => {
   try {
+    // 1. Tìm tác giả trước
     const author = await Author.findById(req.params.id);
     if (!author) {
+      // Nếu không tìm thấy, trả về lỗi 404 ngay
       return res.status(404).json({ error: "Author not found" });
     }
 
-    res.status(200).json(author);
+    // res.status(200).json(author);
+
+    // 2. Sau đó mới tìm sách
+    // (Lưu ý: req.params.id chính là ID của tác giả)
+    const books = await Book.find({ author: req.params.id });
+
+    res.status(200).json({ author, books });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

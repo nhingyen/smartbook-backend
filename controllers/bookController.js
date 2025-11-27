@@ -22,6 +22,21 @@ export const getAllBooks = async (req, res) => {
 // API cho Home Screen
 export const getHomeData = async (req, res) => {
   try {
+    const userId = req.query.userId || null;
+    const readingProgress = [];
+    if (userId) {
+      const progressList = await ReadingProgress.find({ userId })
+        .sort({ lastReadAt: -1 })
+        .populate({
+          path: "bookId",
+          select: "title imgUrl authorName", // tên trường ảnh bìa phải đúng với DB
+          populate: { path: "author", select: "authorName" },
+        })
+        .populate("chapterId", "title");
+
+      // Map dữ liệu cho đúng format
+      readingProgress = progressList.filter((p) => p.bookId).map((p) => p); // Hoặc xử lý map tùy ý
+    }
     const categories = await Category.find().limit(6);
     const authors = await Author.find().limit(6);
     const newBooks = await Book.find()
@@ -38,7 +53,7 @@ export const getHomeData = async (req, res) => {
       authors,
       newBooks,
       specialBooks,
-      //continueReading
+      readingProgress: readingProgress,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

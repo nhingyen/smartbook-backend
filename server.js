@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 5001;
 // --- MIDDLEWARE ---
 app.use(cors()); // Cho phép tất cả các nguồn gọi API
 app.use(express.json()); // Giúp server đọc được JSON từ request
+app.use(express.urlencoded({ extended: true }));
 
 // --- KẾT NỐI MONGODB ---
 mongoose

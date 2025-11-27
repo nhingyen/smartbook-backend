@@ -15,6 +15,9 @@ import * as libCtrl from "../controllers/libraryController.js";
 router.get("/home", bookCtrl.getHomeData);
 
 // === API CHO SÁCH ===
+
+// API Tìm kiếm (Đặt trước các route có :id để tránh nhầm lẫn)
+router.get("/books/search", bookCtrl.searchBooks);
 router.get("/books", bookCtrl.getAllBooks);
 router.get("/books/:id", bookCtrl.getBookDetails);
 // Khi nhận 'POST' đến URL '/api/book', gọi hàm 'createBook'

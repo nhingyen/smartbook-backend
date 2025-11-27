@@ -115,3 +115,24 @@ export const deleteAllBooks = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const searchBooks = async (req, res) => {
+  try {
+    const { q } = req.query; // Lấy từ khóa từ URL: ?q=Harry
+
+    if (!q) {
+      return res.status(200).json([]); // Không có từ khóa thì trả về rỗng
+    }
+
+    // Tìm sách có title chứa từ khóa (i = case-insensitive: không phân biệt hoa thường)
+    const books = await Book.find({
+      title: { $regex: q, $options: "i" },
+    })
+      .populate("author", "authorName") // Lấy thêm tên tác giả
+      .limit(20); // Giới hạn 20 kết quả
+
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

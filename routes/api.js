@@ -10,6 +10,7 @@ import * as categoryCtrl from "../controllers/categoryController.js";
 import * as chapterCtrl from "../controllers/chapterController.js";
 import * as progressCtrl from "../controllers/progressController.js";
 import * as libCtrl from "../controllers/libraryController.js";
+import * as userCtrl from "../controllers/userController.js";
 
 // === API CHO HOME ===
 router.get("/home", bookCtrl.getHomeData);
@@ -52,6 +53,11 @@ router.get("/progress", progressCtrl.getReadingList); // Lấy danh sách
 router.post("/library/toggle", libCtrl.toggleLibrary);
 router.get("/library", libCtrl.getLibrary);
 router.get("/library/check", libCtrl.checkStatus);
+
+// === API LƯU STATS ===
+router.post("/users/stats", userCtrl.updateReadingStats);
+
+router.get("/users/:userId", userCtrl.getUserProfile);
 
 // Phải export default
 export default router;

@@ -9,6 +9,7 @@ import * as bookCtrl from "../controllers/bookController.js";
 import * as categoryCtrl from "../controllers/categoryController.js";
 import * as chapterCtrl from "../controllers/chapterController.js";
 import * as progressCtrl from "../controllers/progressController.js";
+import * as libCtrl from "../controllers/libraryController.js";
 
 // === API CHO HOME ===
 router.get("/home", bookCtrl.getHomeData);
@@ -43,6 +44,11 @@ router.delete("/chapters", chapterCtrl.deleteAllChapters);
 // === API TIẾN ĐỘ ĐỌC ===
 router.post("/progress", progressCtrl.saveProgress); // Lưu
 router.get("/progress", progressCtrl.getReadingList); // Lấy danh sách
+
+// === API LƯU THƯ VIỆN ===
+router.post("/library/toggle", libCtrl.toggleLibrary);
+router.get("/library", libCtrl.getLibrary);
+router.get("/library/check", libCtrl.checkStatus);
 
 // Phải export default
 export default router;

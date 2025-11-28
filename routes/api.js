@@ -12,6 +12,7 @@ import * as progressCtrl from "../controllers/progressController.js";
 import * as libCtrl from "../controllers/libraryController.js";
 import * as userCtrl from "../controllers/userController.js";
 import * as ttsCtrl from "../controllers/ttsController.js";
+import * as aiCtrl from "../controllers/aiController.js";
 
 // === API CHO HOME ===
 router.get("/home", bookCtrl.getHomeData);
@@ -61,5 +62,7 @@ router.post("/users/stats", userCtrl.updateReadingStats);
 router.get("/users/:userId", userCtrl.getUserProfile);
 
 router.post("/tts", ttsCtrl.synthesizeSpeech);
+
+router.post("/ai/summarize", aiCtrl.summarizeText);
 // Phải export default
 export default router;

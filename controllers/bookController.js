@@ -38,7 +38,7 @@ export const getHomeData = async (req, res) => {
       readingProgress = progressList.filter((p) => p.bookId).map((p) => p); // Hoặc xử lý map tùy ý
     }
     const categories = await Category.find().limit(6);
-    const authors = await Author.find().limit(6);
+    const authors = await Author.find().limit(15);
     const newBooks = await Book.find()
       .sort({ createdAt: -1 })
       .populate("author")

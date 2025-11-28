@@ -28,6 +28,9 @@ router.post("/book/", bookCtrl.createBook);
 router.post("/books", bookCtrl.createManyBooks);
 router.delete("/books", bookCtrl.deleteAllBooks);
 
+// === API CHO USER ===
+router.put("/users/:userId", userCtrl.updateUserInfo);
+
 // === API CHO TÁC GIẢ ===
 // GET /api/authors
 router.get("/authors", authorCtrl.getAllAuthors);

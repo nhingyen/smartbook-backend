@@ -83,3 +83,25 @@ export const updateReadingStats = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const updateUserInfo = async (req, res) => {
+  try {
+    const { userId } = req.params; // Lấy userId từ URL
+    const updateData = req.body; // Lấy dữ liệu cần sửa (vd: { photoURL: "..." })
+
+    // Tìm và update theo uid của Firebase
+    const updatedUser = await User.findOneAndUpdate(
+      { uid: userId },
+      { $set: updateData },
+      { new: true } // Trả về dữ liệu mới sau khi update
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

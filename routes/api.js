@@ -11,6 +11,7 @@ import * as chapterCtrl from "../controllers/chapterController.js";
 import * as progressCtrl from "../controllers/progressController.js";
 import * as libCtrl from "../controllers/libraryController.js";
 import * as userCtrl from "../controllers/userController.js";
+import * as ttsCtrl from "../controllers/ttsController.js";
 
 // === API CHO HOME ===
 router.get("/home", bookCtrl.getHomeData);
@@ -59,5 +60,6 @@ router.post("/users/stats", userCtrl.updateReadingStats);
 
 router.get("/users/:userId", userCtrl.getUserProfile);
 
+router.post("/tts", ttsCtrl.synthesizeSpeech);
 // Phải export default
 export default router;

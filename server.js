@@ -5,6 +5,7 @@ import cors from "cors";
 
 // --- IMPORT CÁC ROUTE ---
 import bookRoutes from "./routes/api.js";
+import aiChatRoutes from "./routes/aiRoutes.js";
 
 // Cấu hình để dùng file .env
 dotenv.config();
@@ -36,6 +37,8 @@ mongoose
 // --- API ROUTES ---
 // Bảo server: "Tất cả request đến '/api/books' hãy đưa cho bookRoutes xử lý"
 app.use("/api", bookRoutes);
+
+app.use("/api/ai", aiChatRoutes);
 
 // Route cơ bản để test
 app.get("/", (req, res) => {

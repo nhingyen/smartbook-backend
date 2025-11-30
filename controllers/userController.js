@@ -40,11 +40,19 @@ export const updateReadingStats = async (req, res) => {
       user.stats.totalMinutes += minutesRead;
     }
 
-    // 2. CỘNG SÁCH ĐÃ ĐỌC (Nếu Frontend báo là vừa đọc xong chương cuối)
-    if (isBookFinished) {
-      user.stats.booksRead += 1;
-    }
+    // 2. XỬ LÝ SÁCH ĐÃ ĐỌC (LOGIC MỚI)
+    if (isBookFinished && bookId) {
+      const alreadyRead = user.stats.finishedBookIds.some(
+        (id) => id.toString() === bookId
+      );
 
+      if (!alreadyRead) {
+        // Chỉ thêm ID vào mảng nếu nó chưa tồn tại
+        user.stats.finishedBookIds.push(bookId);
+        // CẬP NHẬT CON SỐ SAU KHI THÊM
+        user.stats.booksRead = user.stats.finishedBookIds.length;
+      }
+    }
     // 3. TÍNH CHUỖI NGÀY (STREAK)
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // 0h00 hôm nay
